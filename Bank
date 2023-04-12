@@ -247,6 +247,42 @@ mysql> select *from account;
 +-------+------+------+---------+-------+
 15 rows in set (0.01 sec)
 
+mysql> insert into borrower values(1515,202,127,200000);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into borrower values(1111,222,165,52000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into borrower values(1121,103,111,50000);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into borrower values(1113,204,123,500000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into borrower values(1414,223,127,13000);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into borrower values(1616,101,133,25000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into borrower values(1141,201,144,45000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select*from borrower;
++---------+------+------+--------+
+| loan_no | cid  | bid  | amount |
++---------+------+------+--------+
+| 1111    | 222  | 165  | 52000  |
+| 1113    | 204  | 123  | 500000 |
+| 1121    | 103  | 111  | 50000  |
+| 1141    | 201  | 144  | 45000  |
+| 1414    | 223  | 127  | 13000  |
+| 1515    | 202  | 127  | 200000 |
+| 1616    | 101  | 133  | 25000  |
++---------+------+------+--------+
+7 rows in set (0.00 sec)
+
+
 
 
 
