@@ -282,7 +282,124 @@ mysql> select*from borrower;
 +---------+------+------+--------+
 7 rows in set (0.00 sec)
 
+mysql> select cname from customer where city="Kochi";
++---------+
+| cname   |
++---------+
+| Anu     |
+| sharika |
+| arun    |
++---------+
+3 rows in set (0.00 sec)
+
+mysql> select bname from branch where bcity="Kochi";
++--------------+
+| bname        |
++--------------+
+| puliyoor     |
+| palarivattom |
++--------------+
+2 rows in set (0.00 sec)
+
+mysql> select c.cname from customer c,account a,branch b where c.cid=a.cid and b.bid=a.bid and b.bname='mg_road';
++--------+
+| cname  |
++--------+
+| remya  |
+| soumya |
++--------+
+2 rows in set (0.00 sec)
 
 
+mysql> insert into borrower values(1161,206,127,18000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select*from borrower;
++---------+------+------+--------+
+| loan_no | cid  | bid  | amount |
++---------+------+------+--------+
+| 1111    | 222  | 165  | 52000  |
+| 1113    | 204  | 123  | 500000 |
+| 1121    | 103  | 111  | 50000  |
+| 1141    | 201  | 144  | 45000  |
+| 1161    | 206  | 127  | 18000  |
+| 1414    | 223  | 127  | 13000  |
+| 1515    | 202  | 127  | 200000 |
+| 1616    | 101  | 133  | 25000  |
++---------+------+------+--------+
+8 rows in set (0.00 sec)
+
+mysql> select c.cname from customer c,borrower b where c.cid=b.cid and c.city='calicut';
++----------+
+| cname    |
++----------+
+| greeshma |
++----------+
+1 row in set (0.01 sec)
+
+mysql> select cname from customer where cid in(select cid from account where bid in(select bid from account group by bid having avg(amount)>32000));
++----------+
+| cname    |
++----------+
+| renju    |
+| remya    |
+| moorthy  |
+| sharika  |
+| nivitha  |
+| soumya   |
+| greeshma |
+| aiswarya |
++----------+
+8 rows in set (0.01 sec)
+
+mysql> select b.bname,sum(a.amount) from account a,branch b where a.bid=b.bid group by b.bname having sum(a.amount)>5000;
++--------------+---------------+
+| bname        | sum(a.amount) |
++--------------+---------------+
+| vaikom       |         56500 |
+| rajakumari   |          7400 |
+| mamagalam    |        100000 |
+| mg_road      |        148984 |
+| mannar       |       1200000 |
+| maradu       |         90000 |
+| puliyoor     |        500000 |
+| kadavanthra  |        901300 |
+| palarivattom |        900000 |
++--------------+---------------+
+9 rows in set (0.00 sec)
+
+mysql> insert into account values(712,205,133,42000,13-8-2014);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select*from account;
++-------+------+------+---------+-------+
+| ac_no | cid  | bid  | amount  | adate |
++-------+------+------+---------+-------+
+| 112   | 101  | 165  | 50000   | -87   |
+| 129   | 223  | 144  | 7400    | -1975 |
+| 213   | 102  | 111  | 100000  | -1987 |
+| 314   | 103  | 112  | 50000   | -1992 |
+| 333   | 102  | 165  | 6500    | -2010 |
+| 449   | 222  | 123  | 200000  | -2007 |
+| 555   | 205  | 112  | 98984   | -1999 |
+| 615   | 202  | 122  | 90000   | -2012 |
+| 712   | 205  | 133  | 42000   | -2009 |
+| 767   | 203  | 123  | 1000000 | -1998 |
+| 777   | 201  | 121  | 500000  | -2011 |
+| 888   | 206  | 132  | 900000  | -1990 |
+| 912   | 222  | 132  | 1300    | -1988 |
+| 934   | 204  | 124  | 4000    | -1997 |
+| 943   | 205  | 127  | 5000    | -1998 |
+| 989   | 201  | 145  | 900000  | -1986 |
++-------+------+------+---------+-------+
+16 rows in set (0.00 sec)
+
+mysql> select b.bname,sum(a.amount) from account a,branch b where a.bid=b.bid and b.bcity='tivandrum' group by b.bname having sum(a.amount)>32000;
++--------------+---------------+
+| bname        | sum(a.amount) |
++--------------+---------------+
+| neyattinkara |         42000 |
++--------------+---------------+
+1 row in set (0.00 sec)
 
 
