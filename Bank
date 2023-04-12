@@ -204,6 +204,8 @@ Query OK, 1 row affected (0.04 sec)
 mysql> insert into account values(943,205,127,5000,10-3-2005);
 Query OK, 1 row affected (0.03 sec)
 
+insert into account values(888,206,132,900000,18-6-2002);
+Query OK, 1 row affected (0.03 sec)
 
 
 
