@@ -207,6 +207,45 @@ Query OK, 1 row affected (0.03 sec)
 insert into account values(888,206,132,900000,18-6-2002);
 Query OK, 1 row affected (0.03 sec)
 
+mysql> insert into account values(912,222,132,1300,26-8-2006);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into account values(129,223,144,7400,30-1-2004);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into account values(989,201,145,900000,31-9-2008);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into account values(333,102,165,6500,5-6-2009);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into account values(449,222,123,200000,11-8-2010);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into account values(555,205,112,98984,19-7-2011);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select *from account;
++-------+------+------+---------+-------+
+| ac_no | cid  | bid  | amount  | adate |
++-------+------+------+---------+-------+
+| 112   | 101  | 165  | 50000   | -87   |
+| 129   | 223  | 144  | 7400    | -1975 |
+| 213   | 102  | 111  | 100000  | -1987 |
+| 314   | 103  | 112  | 50000   | -1992 |
+| 333   | 102  | 165  | 6500    | -2010 |
+| 449   | 222  | 123  | 200000  | -2007 |
+| 555   | 205  | 112  | 98984   | -1999 |
+| 615   | 202  | 122  | 90000   | -2012 |
+| 767   | 203  | 123  | 1000000 | -1998 |
+| 777   | 201  | 121  | 500000  | -2011 |
+| 888   | 206  | 132  | 900000  | -1990 |
+| 912   | 222  | 132  | 1300    | -1988 |
+| 934   | 204  | 124  | 4000    | -1997 |
+| 943   | 205  | 127  | 5000    | -1998 |
+| 989   | 201  | 145  | 900000  | -1986 |
++-------+------+------+---------+-------+
+15 rows in set (0.01 sec)
 
 
 
