@@ -555,5 +555,32 @@ mysql> select cname from customer where city='kochi' and cid in(select cid from 
 +---------+
 3 rows in set (0.00 sec)
 
+mysql> select bname from branch where bid in(select bid from account group by bid having count(bid)>=all(select count(cid) from account group by bid));
++-------------+
+| bname       |
++-------------+
+| mg_road     |
+| mannar      |
+| kadavanthra |
+| vaikom      |
++-------------+
+4 rows in set (0.02 sec)
+mysql> select cname from customer where cid in (select cid from account group by cid having count(cid)>=all(select count(cid) from account group by cid));
++--------+
+| cname  |
++--------+
+| soumya |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select bcity from branch group by bcity having count(bid)>=all(select count(bid) from branch group by bcity);
++---------+
+| bcity   |
++---------+
+| calicut |
++---------+
+1 row in set (0.00 sec)
+
+
 
 
