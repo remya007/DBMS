@@ -581,6 +581,45 @@ mysql> select bcity from branch group by bcity having count(bid)>=all(select cou
 +---------+
 1 row in set (0.00 sec)
 
+mysql> select b.bname,count(a.cid) from account a,branch b where a.bid=b.bid group by b.bname having count(a.cid)>2;
+Empty set (0.01 sec)
+
+mysql> select cname from customer where cid in(select cid from account where cid not in(select cid from borrower));
++---------+
+| cname   |
++---------+
+| renju   |
+| nivitha |
+| soumya  |
+| aparna  |
++---------+
+4 rows in set (0.01 sec)
+
+mysql> select cname from customer where city='kochi' and cid in(select cid from account where cid in(select cid from borrower));
++---------+
+| cname   |
++---------+
+| Anu     |
+| sharika |
+| arun    |
++---------+
+3 rows in set (0.00 sec)
+
+mysql> select sum(amount) as loan_amount from borrower;
++-------------+
+| loan_amount |
++-------------+
+|      903000 |
++-------------+
+1 row in set (0.01 sec)
+
+mysql> select cname from customer where cid in(select cid from account where amount=(select max(amount) from account where bid in(select bid from account where cid in(select cid from customer where cname='arun'))));
++-------+
+| cname |
++-------+
+| arun  |
++-------+
+1 row in set (0.00 sec)
 
 
 
