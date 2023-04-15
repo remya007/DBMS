@@ -257,3 +257,240 @@ mysql> select*from account;
 +-------+------+------+----------+-------+
 17 rows in set (0.00 sec)
 
+mysql> insert into borrower values(1515,202,127,200000);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into borrower values(1111,222,165,52000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into borrower values(1121,103,111,50000);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into borrower values(1113,204,123,500000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into borrower values(1414,223,127,13000);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into borrower values(1616,101,133,25000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into borrower values(1141,201,144,45000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select*from borrower;
++---------+------+------+--------+
+| loan_no | cid  | bid  | amount |
++---------+------+------+--------+
+| 1111    | 222  | 165  | 52000  |
+| 1113    | 204  | 123  | 500000 |
+| 1121    | 103  | 111  | 50000  |
+| 1141    | 201  | 144  | 45000  |
+| 1414    | 223  | 127  | 13000  |
+| 1515    | 202  | 127  | 200000 |
+| 1616    | 101  | 133  | 25000  |
++---------+------+------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select cname from customer where city="Kochi";
++---------+
+| cname   |
++---------+
+| Anu     |
+| sharika |
+| arun    |
++---------+
+3 rows in set (0.00 sec)
+
+mysql> select bname from branch where bcity="Kochi";
++--------------+
+| bname        |
++--------------+
+| puliyoor     |
+| palarivattom |
++--------------+
+2 rows in set (0.00 sec)
+
+mysql> select c.cname from customer c,account a,branch b where c.cid=a.cid and b.bid=a.bid and b.bname='mg_road';
++--------+
+| cname  |
++--------+
+| remya  |
+| soumya |
++--------+
+2 rows in set (0.00 sec)
+
+
+mysql> insert into borrower values(1161,206,127,18000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select*from borrower;
++---------+------+------+--------+
+| loan_no | cid  | bid  | amount |
++---------+------+------+--------+
+| 1111    | 222  | 165  | 52000  |
+| 1113    | 204  | 123  | 500000 |
+| 1121    | 103  | 111  | 50000  |
+| 1141    | 201  | 144  | 45000  |
+| 1161    | 206  | 127  | 18000  |
+| 1414    | 223  | 127  | 13000  |
+| 1515    | 202  | 127  | 200000 |
+| 1616    | 101  | 133  | 25000  |
++---------+------+------+--------+
+8 rows in set (0.00 sec)
+
+mysql> select c.cname from customer c,borrower b where c.cid=b.cid and c.city='calicut';
++----------+
+| cname    |
++----------+
+| greeshma |
++----------+
+1 row in set (0.01 sec)
+
+mysql> select cname from customer where cid in(select cid from account where bid in(select bid from account group by bid having avg(amount)>32000));
++----------+
+| cname    |
++----------+
+| Anu      |
+| renju    |
+| moorthy  |
+| nivitha  |
+| anish    |
+| soumya   |
+| aiswarya |
+| aparna   |
++----------+
+8 rows in set (0.01 sec)
+
+mysql> select b.bname,sum(a.amount) from account a,branch b where a.bid=b.bid group by b.bname having sum(a.amount)>5000;
++--------------+---------------+
+| bname        | sum(a.amount) |
++--------------+---------------+
+| mamagalam    |         98989 |
+| mg_road      |         13500 |
+| puliyoor     |          9000 |
+| maradu       |         10000 |
+| mannar       |        920000 |
+| thiruvalla   |      10000000 |
+| chittor      |         90000 |
+| kadavanthra  |         63000 |
+| rajakumari   |          8000 |
+| palarivattom |        500000 |
+| poojapura    |         50000 |
+| vaikom       |        120000 |
++--------------+---------------+
+12 rows in set (0.00 sec)
+
+mysql> select b.bname,sum(a.amount) from account a,branch b where a.bid=b.bid and b.bcity='tivandrum' group by b.bname having sum(a.amount)>32000;
++-----------+---------------+
+| bname     | sum(a.amount) |
++-----------+---------------+
+| poojapura |         50000 |
++-----------+---------------+
+1 row in set (0.00 sec)
+
+mysql> select c.cname from customer c,account a,branch b where a.cid=c.cid and a.bid=b.bid and a.amount=(select max(a1.amount) from account a1);
++-------+
+| cname |
++-------+
+| renju |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select cname from customer where cid in(select cid from account where cid not in(select cid from borrower));
++---------+
+| cname   |
++---------+
+| renju   |
+| nivitha |
+| soumya  |
+| aparna  |
++---------+
+4 rows in set (0.01 sec)
+
+mysql> select cname from customer where city='kochi' and cid in(select cid from account where cid in(select cid from borrower));
++---------+
+| cname   |
++---------+
+| Anu     |
+| sharika |
+| arun    |
++---------+
+3 rows in set (0.00 sec)
+
+mysql> select bname from branch where bid in(select bid from account group by bid having count(bid)>=all(select count(cid) from account group by bid));
++-------------+
+| bname       |
++-------------+
+| kadavanthra |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select cname from customer where cid in (select cid from account group by cid having count(cid)>=all(select count(cid) from account group by cid));
++----------+
+| cname    |
++----------+
+| renju    |
+| moorthy  |
+| soumya   |
+| aiswarya |
+| arun     |
++----------+
+5 rows in set (0.00 sec)
+
+mysql> select bcity from branch group by bcity having count(bid)>=all(select count(bid) from branch group by bcity);
++---------+
+| bcity   |
++---------+
+| calicut |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select b.bname,count(a.cid) from account a,branch b where a.bid=b.bid group by b.bname having count(a.cid)>2;
++-------------+--------------+
+| bname       | count(a.cid) |
++-------------+--------------+
+| kadavanthra |            3 |
++-------------+--------------+
+1 row in set (0.00 sec)
+
+mysql> select cname from customer where cid in(select cid from account where cid not in(select cid from borrower));
++---------+
+| cname   |
++---------+
+| renju   |
+| nivitha |
+| soumya  |
+| aparna  |
++---------+
+4 rows in set (0.00 sec)
+
+mysql> select cname from customer where city='kochi' and cid in(select cid from account where cid in(select cid from borrower));
++---------+
+| cname   |
++---------+
+| Anu     |
+| sharika |
+| arun    |
++---------+
+3 rows in set (0.00 sec)
+
+mysql> select sum(amount) as loan_amount from borrower;
++-------------+
+| loan_amount |
++-------------+
+|      903000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select cname from customer where cid in(select cid from account where amount=(select max(amount) from account where bid in(select bid from account where cid in(select cid from customer where cname='arun'))));
++----------+
+| cname    |
++----------+
+| moorthy  |
+| greeshma |
++----------+
+2 rows in set (0.00 sec)
+
+
+
