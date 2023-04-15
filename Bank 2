@@ -1,0 +1,259 @@
+create database bank;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use bank;
+Database changed
+create table customer (cid varchar(5) primary key,cname varchar(30),city varchar(30));
+mysql> desc customer;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| cid   | varchar(5)  | NO   | PRI | NULL    |       |
+| cname | varchar(30) | YES  |     | NULL    |       |
+| city  | varchar(30) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+CREATE TABLE branch
+    ->    (
+    ->     bid VARCHAR(6),
+    ->     bname VARCHAR(30),
+    ->     bcity VARCHAR(30),
+    ->     CONSTRAINT branch_bid_pk PRIMARY KEY(bid) 
+    ->    );
+ create table account(ac_no varchar(5) primary key,cid varchar(5),bid varchar(5),amount varchar(10),adate varchar(10), foreign key(cid) references customer(cid) ,foreign key(bid) references branch (bid));
+ desc account;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| ac_no  | varchar(5)  | NO   | PRI | NULL    |       |
+| cid    | varchar(5)  | YES  | MUL | NULL    |       |
+| bid    | varchar(5)  | YES  | MUL | NULL    |       |
+| amount | varchar(10) | YES  |     | NULL    |       |
+| adate  | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+
+create table borrower(loanno varchar(8) primary key,cid varchar(5),amount varchar(10),bid varchar(6),CONSTRAINT borrower_cid_fk FOREIGN KEY(cid) REFERENCES customer(cid),CONSTRAINT borrower_bid_fk FOREIGN KEY(bid) REFERENCES branch(bid));
+Query OK, 0 rows affected (0.38 sec)
+mysql> desc borrower;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| loanno | varchar(8)  | NO   | PRI | NULL    |       |
+| cid    | varchar(5)  | YES  | MUL | NULL    |       |
+| amount | varchar(10) | YES  |     | NULL    |       |
+| bid    | varchar(6)  | YES  | MUL | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+insert into customer values(101,"Anu","kochi");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into customer values(102,"renju","petta");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into customer values(103,"remya","palakkad");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into customer values(201,"moorthy","palakkad");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into customer values(202,"sharika","kochi");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into customer values(203,"nivitha","tivandrum");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into customer values(204,"anish","kollam");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into customer values(205,"soumya","tivandrum");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into customer values(206,"greeshma","calicut");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into customer values(222,"aiswarya","kannur");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> desc customer;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| cid   | varchar(5)  | NO   | PRI | NULL    |       |
+| cname | varchar(30) | YES  |     | NULL    |       |
+| city  | varchar(30) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)select*from customer;
++-----+----------+-----------+
+| cid | cname    | city      |
++-----+----------+-----------+
+| 101 | Anu      | kochi     |
+| 102 | renju    | petta     |
+| 103 | remya    | palakkad  |
+| 201 | moorthy  | palakkad  |
+| 202 | sharika  | kochi     |
+| 203 | nivitha  | tivandrum |
+| 204 | anish    | kollam    |
+| 205 | soumya   | tivandrum |
+| 206 | greeshma | calicut   |
+| 222 | aiswarya | kannur    |
++-----+----------+-----------+
+10 rows in set (0.00 sec) insert into customer values(223,"arun","kochi");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select*from customer;
++-----+----------+-----------+
+| cid | cname    | city      |
++-----+----------+-----------+
+| 101 | Anu      | kochi     |
+| 102 | renju    | petta     |
+| 103 | remya    | palakkad  |
+| 201 | moorthy  | palakkad  |
+| 202 | sharika  | kochi     |
+| 203 | nivitha  | tivandrum |
+| 204 | anish    | kollam    |
+| 205 | soumya   | tivandrum |
+| 206 | greeshma | calicut   |
+| 222 | aiswarya | kannur    |
+| 223 | arun     | kochi     |
++-----+----------+-----------+
+11 rows in set (0.00 sec)
+
+mysql> insert into branch values(121,"puliyoor","kochi");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into branch values(123,"mannar","wayanad");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into branch values(124,"thiruvalla","alappuzha");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into branch values(112,"mg_road","edukki");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into branch values(145,"palarivattom","kochi");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into branch values(122,"maradu","calicut");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into branch values(127,"chittor","calicut");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into branch values(111,"mamagalam","calicut");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into branch values(165,"vaikom","kottayam");
+Query OK, 1 row affected (0.03 sec)
+insert into branch values(133,"neyattinkara","tivandrum");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into branch values(132,"kadavanthra","pta");
+Query OK, 1 row affected (0.03 sec)
+insert into branch values(144,"rajakumari","malappuram");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select*from branch;
++-----+--------------+------------+
+| bid | bname        | bcity      |
++-----+--------------+------------+
+| 111 | mamagalam    | calicut    |
+| 112 | mg_road      | edukki     |
+| 121 | puliyoor     | kochi      |
+| 122 | maradu       | calicut    |
+| 123 | mannar       | wayanad    |
+| 124 | thiruvalla   | alappuzha  |
+| 127 | chittor      | calicut    |
+| 132 | kadavanthra  | pta        |
+| 133 | neyattinkara | tivandrum  |
+| 144 | rajakumari   | malappuram |
+| 145 | palarivattom | kochi      |
+| 165 | vaikom       | kottayam   |
++-----+--------------+------------+
+12 rows in set (0.00 sec)
+ desc account;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| ac_no  | varchar(5)  | NO   | PRI | NULL    |       |
+| cid    | varchar(5)  | YES  | MUL | NULL    |       |
+| bid    | varchar(5)  | YES  | MUL | NULL    |       |
+| amount | varchar(10) | YES  |     | NULL    |       |
+| adate  | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> Insert into account values (504,223,132,50000,13-4-2013);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> Insert into account values (526,101,165,100000,1-4-2002);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into account values(439,404,156,50000,7-2-2001);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> Insert into account values (989,201,145,500000,19-7-2011);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> Insert into account values (943,205,127,90000,11-8-2010);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> Insert into account values (934,204,124,10000000,5-6-2009);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> Insert into account values (912,222,132,4000,31-9-2008);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> Insert into account values (888,206,132,9000,31-9-2008);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> Insert into account values (777,201,121,9000,30-1-2004);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> Insert into account values (767,203,123,900000,26-8-2006);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> Insert into account values (129,223,144,8000,18-5-2000);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> Insert into account values (213,102,111,98989,17-8-2001);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> Insert into account values (314,103,112,5000,2-2-2011);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> Insert into account values (333,102,165,20000,9-12-2009);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into account values (449,222,123,20000,8-3-2003);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> Insert into account values (555,205,112,8500,10-3-2004);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into account values (615,202,122,10000,18-3-2015);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select*from account;
++-------+------+------+----------+-------+
+| ac_no | cid  | bid  | amount   | adate |
++-------+------+------+----------+-------+
+| 129   | 223  | 144  | 8000     | -1987 |
+| 213   | 102  | 111  | 98989    | -1992 |
+| 314   | 103  | 112  | 5000     | -2011 |
+| 333   | 102  | 165  | 20000    | -2012 |
+| 439   | 404  | 156  | 50000    | -1996 |
+| 449   | 222  | 123  | 20000    | -1998 |
+| 504   | 223  | 132  | 50000    | -2004 |
+| 526   | 101  | 165  | 100000   | -2005 |
+| 555   | 205  | 112  | 8500     | -1997 |
+| 615   | 202  | 122  | 10000    | -2000 |
+| 767   | 203  | 123  | 900000   | -1988 |
+| 777   | 201  | 121  | 9000     | -1975 |
+| 888   | 206  | 132  | 9000     | -1986 |
+| 912   | 222  | 132  | 4000     | -1986 |
+| 934   | 204  | 124  | 10000000 | -2010 |
+| 943   | 205  | 127  | 90000    | -2007 |
+| 989   | 201  | 145  | 500000   | -1999 |
++-------+------+------+----------+-------+
+17 rows in set (0.00 sec)
+
