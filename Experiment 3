@@ -1,0 +1,46 @@
+ use employee7;
+Database changed
+
+create table jobs(job_id int primary key,job_title varchar(20),min_salary int(20),max_salary int(25));
+Query OK, 0 rows affected (1.59 sec)
+
+mysql> desc jobs;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| job_id     | int(11)     | NO   | PRI | NULL    |       |
+| job_title  | varchar(20) | YES  |     | NULL    |       |
+| min_salary | int(20)     | YES  |     | NULL    |       |
+| max_salary | int(25)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+
+ create table employee(emp_id varchar(20) primary key,first_name varchar(20),last_name varchar(20),ph_no int(10),hire_date varchar(20),job_id int,manager_id int,dept_id int,foreign key(job_id)references jobs(job_id));
+Query OK, 0 rows affected (0.62 sec)
+
+mysql> desc employee;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| emp_id     | varchar(20) | NO   | PRI | NULL    |       |
+| first_name | varchar(20) | YES  |     | NULL    |       |
+| last_name  | varchar(20) | YES  |     | NULL    |       |
+| ph_no      | int(10)     | YES  |     | NULL    |       |
+| hire_date  | varchar(20) | YES  |     | NULL    |       |
+| job_id     | int(11)     | YES  | MUL | NULL    |       |
+| manager_id | int(11)     | YES  |     | NULL    |       |
+| dept_id    | int(11)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+
+ create table dependent(dependent_id int primary key,first_name varchar(10),last_name varchar(10),relationship varchar(20),employee_id varchar(20),foreign key(employee_id)references employee(emp_id));
+
+ desc dependent;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| dependent_id | int(11)     | NO   | PRI | NULL    |       |
+| first_name   | varchar(10) | YES  |     | NULL    |       |
+| last_name    | varchar(10) | YES  |     | NULL    |       |
+| relationship | varchar(20) | YES  |     | NULL    |       |
+| employee_id  | varchar(20) | YES  | MUL | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+
