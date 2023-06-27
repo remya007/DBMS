@@ -116,3 +116,179 @@ mysql> desc dependents;
 5 rows in set (0.01 sec)
 
 
+
+Database changed
+mysql> select * from regions;
++-----------+-------------+
+| region_id | region_name |
++-----------+-------------+
+|       256 | Ernakulam   |
+|       257 | kollam      |
++-----------+-------------+
+2 rows in set (0.04 sec)
+
+mysql> desc countries;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| countrie_id   | int(11)     | NO   | PRI | NULL    | auto_increment |
+| countrie_name | varchar(20) | YES  |     | NULL    |                |
+| region_id     | int(11)     | YES  | MUL | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+3 rows in set (0.08 sec)
+mysql> insert into countries values(201,'india',256);
+Query OK, 1 row affected (0.16 sec)
+
+mysql> select *from countries;
++-------------+---------------+-----------+
+| countrie_id | countrie_name | region_id |
++-------------+---------------+-----------+
+|         201 | india         |       256 |
++-------------+---------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> desc locations;
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| location_id    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| street_address | varchar(50) | YES  |     | NULL    |                |
+| postal_code    | varchar(20) | YES  |     | NULL    |                |
+| city           | varchar(20) | YES  |     | NULL    |                |
+| state_province | varchar(30) | YES  |     | NULL    |                |
+| countrie_id    | int(11)     | YES  | MUL | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.18 sec)
+
+mysql> insert into locations values(1700,'mannar',666,'Allapuzha','kerala',201);
+Query OK, 1 row affected (0.43 sec)
+mysql> select *from locations;
++-------------+----------------+-------------+-----------+----------------+-------------+
+| location_id | street_address | postal_code | city      | state_province | countrie_id |
++-------------+----------------+-------------+-----------+----------------+-------------+
+|        1700 | mannar         | 666         | Allapuzha | kerala         |         201 |
++-------------+----------------+-------------+-----------+----------------+-------------+
+1 row in set (0.00 sec)
+
+mysql> insert into locations values(1800,'parumala',777,'TVM','kerala',201);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select *from locations;
++-------------+----------------+-------------+-----------+----------------+-------------+
+| location_id | street_address | postal_code | city      | state_province | countrie_id |
++-------------+----------------+-------------+-----------+----------------+-------------+
+|        1700 | mannar         | 666         | Allapuzha | kerala         |         201 |
+|        1800 | parumala       | 777         | TVM       | kerala         |         201 |
++-------------+----------------+-------------+-----------+----------------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> desc department;
+ERROR 1146 (42S02): Table 'jobs.department' doesn't exist
+mysql> desc departments;
++-----------------+-------------+------+-----+---------+----------------+
+| Field           | Type        | Null | Key | Default | Extra          |
++-----------------+-------------+------+-----+---------+----------------+
+| department_id   | int(11)     | NO   | PRI | NULL    | auto_increment |
+| department_name | varchar(30) | YES  |     | NULL    |                |
+| location_id     | int(11)     | YES  | MUL | NULL    |                |
++-----------------+-------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into departments values(1,'computer',1700);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into departments values(2,'maths',1800);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into departments values(3,'science',1500);
+mysql> insert into departments values(3,'science',1700);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into departments values(4,'finance',1700);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from departments;
++---------------+-----------------+-------------+
+| department_id | department_name | location_id |
++---------------+-----------------+-------------+
+|             1 | computer        |        1700 |
+|             2 | maths           |        1800 |
+|             3 | science         |        1700 |
+|             4 | finance         |        1700 |
++---------------+-----------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> desc jobs;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| job_id     | int(11)     | NO   | PRI | NULL    | auto_increment |
+| job_title  | varchar(20) | YES  |     | NULL    |                |
+| min_salary | int(11)     | YES  |     | NULL    |                |
+| max_salary | int(11)     | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into jobs values(501,'manager',5000,10500);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into jobs values(502,'cleark',5000,9000);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into jobs values(503,'database',5000,10000);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from jobs;
++--------+-----------+------------+------------+
+| job_id | job_title | min_salary | max_salary |
++--------+-----------+------------+------------+
+|    501 | manager   |       5000 |      10500 |
+|    502 | cleark    |       5000 |       9000 |
+|    503 | database  |       5000 |      10000 |
++--------+-----------+------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> desc manager;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| manager_id | int(11)     | NO   | PRI | NULL    | auto_increment |
+| name       | varchar(20) | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into manager values(101,'manu');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into manager values(105,'malavika');
+Query OK, 1 row affected (0.16 sec)
+
+mysql> select * from manager;
++------------+----------+
+| manager_id | name     |
++------------+----------+
+|        101 | manu     |
+|        105 | malavika |
++------------+----------+
+2 rows in set (0.00 sec)
+
+mysql> desc employee;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| employee_id   | int(11)     | NO   | PRI | NULL    | auto_increment |
+| first_name    | varchar(20) | YES  |     | NULL    |                |
+| last_name     | varchar(20) | YES  |     | NULL    |                |
+| email         | varchar(30) | YES  |     | NULL    |                |
+| phone_number  | int(12)     | YES  |     | NULL    |                |
+| hire_date     | date        | YES  |     | NULL    |                |
+| job_id        | int(11)     | YES  | MUL | NULL    |                |
+| salary        | int(11)     | YES  |     | NULL    |                |
+| manager_id    | int(11)     | YES  | MUL | NULL    |                |
+| department_id | int(11)     | YES  | MUL | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+10 rows in set (0.00 sec)
+
+
+
+
