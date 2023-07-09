@@ -243,3 +243,88 @@ mysql> select*from jobs;
 |     70 | Advocate          |      90000 |         10 |
 +--------+-------------------+------------+------------+
 7 rows in set (0.00 sec)
+
+
+mysql> insert into manager values(31,"Madav"),(32,"Arpitha"),(33,"Neehu"),(34,"Geethu"),(37,"Sreeram"),(36,"Varun"),(43,"Sharan");
+Query OK, 7 rows affected (0.01 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> select*from manager;
++------------+---------+
+| manager_id | name    |
++------------+---------+
+|         31 | Madav   |
+|         32 | Arpitha |
+|         33 | Neehu   |
+|         34 | Geethu  |
+|         36 | Varun   |
+|         37 | Sreeram |
+|         43 | Sharan  |
++------------+---------+
+7 rows in set (0.01 sec)
+mysql> insert into employee values(61234,"Dhruv","mohan","dhruvmohan02@gmail.com",979413510,"1997-07-26",10,25000,34,5);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into employee values(86324,"Ethan","Jack","ethanjack09@gmail.com",900599198,"2002-05-11",20,7000,33,2);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employee values(10158,"Zack","John","zackjohn28@gmail.com",885318964,"05-03-2004",40,32000,37,4);
+ERROR 1292 (22007): Incorrect date value: '05-03-2004' for column 'hire_date' at row 1
+mysql> insert into employee values(10158,"Zack","John","zackjohn28@gmail.com",885318964,"2004-03-05",40,32000,37,4);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values(29052,"Isaac","mathew","issacmathew45@gmail.com",775595585,"1994-05-08",60,40000,43,6);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into employee values(69532,"Milo","Luis","miloluis500@gmail.com",876543234,"12-09-2000",70,91000,31,7);
+ERROR 1292 (22007): Incorrect date value: '12-09-2000' for column 'hire_date' at row 1
+mysql> insert into employee values(69532,"Milo","Luis","miloluis500@gmail.com",876543234,"2000-09-12",70,91000,31,7);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select*from employee;
++-------------+------------+-----------+-------------------------+--------------+------------+--------+--------+------------+---------------+
+| employee_id | first_name | last_name | email                   | phone_number | hire_date  | job_id | salary | manager_id | department_id |
++-------------+------------+-----------+-------------------------+--------------+------------+--------+--------+------------+---------------+
+|       10158 | Zack       | John      | zackjohn28@gmail.com    |    885318964 | 2004-03-05 |     40 |  32000 |         37 |             4 |
+|       29052 | Isaac      | mathew    | issacmathew45@gmail.com |    775595585 | 1994-05-08 |     60 |  40000 |         43 |             6 |
+|       61234 | Dhruv      | mohan     | dhruvmohan02@gmail.com  |    979413510 | 1997-07-26 |     10 |  25000 |         34 |             5 |
+|       69532 | Milo       | Luis      | miloluis500@gmail.com   |    876543234 | 2000-09-12 |     70 |  91000 |         31 |             7 |
+|       86324 | Ethan      | Jack      | ethanjack09@gmail.com   |    900599198 | 2002-05-11 |     20 |   7000 |         33 |             2 |
++-------------+------------+-----------+-------------------------+--------------+------------+--------+--------+------------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into dependents values(512,"David","Grey","Brother-in-law",61234);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into dependents values(617,"Kevin","paul","cousin",86324);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into dependents values(533,"Jason","Ryan","Null",Null);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into dependents values(618,"Olivia","Liam","uncle",10158);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into dependents values(804,"Sophia","Sebastian","Aunty",29052);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into dependents values(408,"Michal","Thomas","son",69532);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into dependents values(331,"Adam","jerry","Null",Null);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select*from dependents;
++--------------+------------+-----------+----------------+-------------+
+| dependent_id | first_name | last_name | relationship   | employee_id |
++--------------+------------+-----------+----------------+-------------+
+|          331 | Adam       | jerry     | Null           |        NULL |
+|          408 | Michal     | Thomas    | son            |       69532 |
+|          512 | David      | Grey      | Brother-in-law |       61234 |
+|          533 | Jason      | Ryan      | Null           |        NULL |
+|          617 | Kevin      | paul      | cousin         |       86324 |
+|          618 | Olivia     | Liam      | uncle          |       10158 |
+|          804 | Sophia     | Sebastian | Aunty          |       29052 |
++--------------+------------+-----------+----------------+-------------+
+7 rows in set (0.00 sec)
+
