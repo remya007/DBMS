@@ -328,3 +328,43 @@ mysql> select*from dependents;
 +--------------+------------+-----------+----------------+-------------+
 7 rows in set (0.00 sec)
 
+
+mysql> select e.first_name,e.last_name from employee e join departments l on e.department_id=l.department_id where l.location_id=1700;
++------------+-----------+
+| first_name | last_name |
++------------+-----------+
+| Milo       | Luis      |
++------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> select e.first_name,e.last_name from employee e join departments l on e.department_id=l.department_id where l.location_id not in (1700);
++------------+-----------+
+| first_name | last_name |
++------------+-----------+
+| Zack       | John      |
+| Isaac      | mathew    |
+| Dhruv      | mohan     |
+| Ethan      | Jack      |
++------------+-----------+
+4 rows in set (0.01 sec)
+
+mysql> select first-name,last_name,salary from employee where salary=(select max(salary)from employee);
+ERROR 1054 (42S22): Unknown column 'first' in 'field list'
+mysql> select first_name,last_name,salary from employee where salary=(select max(salary)from employee);
++------------+-----------+--------+
+| first_name | last_name | salary |
++------------+-----------+--------+
+| Milo       | Luis      |  91000 |
++------------+-----------+--------+
+1 row in set (0.00 sec)
+
+mysql> select first_name,last_name,salary from employee where salary>all(select avg(salary)from employee);
++------------+-----------+--------+
+| first_name | last_name | salary |
++------------+-----------+--------+
+| Isaac      | mathew    |  40000 |
+| Milo       | Luis      |  91000 |
++------------+-----------+--------+
+2 rows in set (0.00 sec)
+
+
