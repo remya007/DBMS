@@ -1,294 +1,245 @@
-create database jobs;
-mysql> use jobs
+ create database jobs;
+Query OK, 1 row affected (0.01 sec)
+use jobs;
 Database changed
-mysql> create table regions (region_id int not null auto_increment,region_name varchar(20), primary key(region_id));
-Query OK, 0 rows affected (1.10 sec)
+create table regions (region_id int not null auto_increment,region_name varchar(20), primary key(region_id));
+Query OK, 0 rows affected (0.02 sec)
 
+mysql> Query OK, 0 rows affected (0.24 sec)
+    -> ^C
 mysql> desc regions;
 +-------------+-------------+------+-----+---------+----------------+
 | Field       | Type        | Null | Key | Default | Extra          |
 +-------------+-------------+------+-----+---------+----------------+
-| region_id   | int(11)     | NO   | PRI | NULL    | auto_increment |
+| region_id   | int         | NO   | PRI | NULL    | auto_increment |
 | region_name | varchar(20) | YES  |     | NULL    |                |
 +-------------+-------------+------+-----+---------+----------------+
-2 rows in set (0.20 sec)
+2 rows in set (0.01 sec)
 
-mysql>  create table countries (countrie_id int not null auto_increment,countrie_name varchar(20),region_id int, primary key(countrie_id),foreign key(region_id) references regions(region_id));
-Query OK, 0 rows affected (0.55 sec)
+mysql> create table countries (countrie_id int not null auto_increment,countrie_name varchar(20),region_id int, primary key(countrie_id),foreign key(region_id) references regions(region_id));
+Query OK, 0 rows affected (0.02 sec)
 
 mysql> desc countries;
 +---------------+-------------+------+-----+---------+----------------+
 | Field         | Type        | Null | Key | Default | Extra          |
 +---------------+-------------+------+-----+---------+----------------+
-| countrie_id   | int(11)     | NO   | PRI | NULL    | auto_increment |
+| countrie_id   | int         | NO   | PRI | NULL    | auto_increment |
 | countrie_name | varchar(20) | YES  |     | NULL    |                |
-| region_id     | int(11)     | YES  | MUL | NULL    |                |
+| region_id     | int         | YES  | MUL | NULL    |                |
 +---------------+-------------+------+-----+---------+----------------+
-3 rows in set (0.02 sec)
+3 rows in set (0.01 sec)
 
 mysql> create table locations (location_id int not null auto_increment,street_address varchar(50),postal_code varchar(20),city varchar(20),state_province varchar(30),countrie_id int,primary key(location_id),foreign key(countrie_id)references countries(countrie_id));
-Query OK, 0 rows affected (0.59 sec)
+Query OK, 0 rows affected (0.04 sec)
 
+mysql> desc locations
+    -> ^C
 mysql> desc locations;
 +----------------+-------------+------+-----+---------+----------------+
 | Field          | Type        | Null | Key | Default | Extra          |
 +----------------+-------------+------+-----+---------+----------------+
-| location_id    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| location_id    | int         | NO   | PRI | NULL    | auto_increment |
 | street_address | varchar(50) | YES  |     | NULL    |                |
 | postal_code    | varchar(20) | YES  |     | NULL    |                |
 | city           | varchar(20) | YES  |     | NULL    |                |
 | state_province | varchar(30) | YES  |     | NULL    |                |
-| countrie_id    | int(11)     | YES  | MUL | NULL    |                |
+| countrie_id    | int         | YES  | MUL | NULL    |                |
 +----------------+-------------+------+-----+---------+----------------+
 6 rows in set (0.00 sec)
 
-mysql> create table departments (department_id int not null auto_increment,department_name varchar(30),location_id int,primary key(department_id),foreign key(location_id) references locations(location_id));
-Query OK, 0 rows affected (0.41 sec)
+mysql>  create table departments (department_id int not null auto_increment,department_name varchar(30),location_id int,primary key(department_id),foreign key(location_id) references locations(location_id));
+Query OK, 0 rows affected (0.04 sec)
 
 mysql> desc departments;
 +-----------------+-------------+------+-----+---------+----------------+
 | Field           | Type        | Null | Key | Default | Extra          |
 +-----------------+-------------+------+-----+---------+----------------+
-| department_id   | int(11)     | NO   | PRI | NULL    | auto_increment |
+| department_id   | int         | NO   | PRI | NULL    | auto_increment |
 | department_name | varchar(30) | YES  |     | NULL    |                |
-| location_id     | int(11)     | YES  | MUL | NULL    |                |
+| location_id     | int         | YES  | MUL | NULL    |                |
 +-----------------+-------------+------+-----+---------+----------------+
 3 rows in set (0.01 sec)
 
-mysql>  create table jobs (job_id int not null auto_increment,job_title varchar(20),min_salary int ,max_salary int,primary key(job_id));
-Query OK, 0 rows affected (0.40 sec)
+mysql> create table jobs (job_id int not null auto_increment,job_title varchar(20),min_salary int ,max_salary int,primary key(job_id));
+Query OK, 0 rows affected (0.03 sec)
 
 mysql> desc jobs;
 +------------+-------------+------+-----+---------+----------------+
 | Field      | Type        | Null | Key | Default | Extra          |
 +------------+-------------+------+-----+---------+----------------+
-| job_id     | int(11)     | NO   | PRI | NULL    | auto_increment |
+| job_id     | int         | NO   | PRI | NULL    | auto_increment |
 | job_title  | varchar(20) | YES  |     | NULL    |                |
-| min_salary | int(11)     | YES  |     | NULL    |                |
-| max_salary | int(11)     | YES  |     | NULL    |                |
+| min_salary | int         | YES  |     | NULL    |                |
+| max_salary | int         | YES  |     | NULL    |                |
 +------------+-------------+------+-----+---------+----------------+
-4 rows in set (0.03 sec)
+4 rows in set (0.00 sec)
 
 mysql> create table manager (manager_id int not null auto_increment,name varchar(20),primary key(manager_id));
-Query OK, 0 rows affected (0.54 sec)
+Query OK, 0 rows affected (0.06 sec)
 
 mysql> desc manager;
 +------------+-------------+------+-----+---------+----------------+
 | Field      | Type        | Null | Key | Default | Extra          |
 +------------+-------------+------+-----+---------+----------------+
-| manager_id | int(11)     | NO   | PRI | NULL    | auto_increment |
+| manager_id | int         | NO   | PRI | NULL    | auto_increment |
 | name       | varchar(20) | YES  |     | NULL    |                |
 +------------+-------------+------+-----+---------+----------------+
-2 rows in set (0.03 sec)
-mysql>  CREATE TABLE `employee` ( `employee_id` INT NOT NULL AUTO_INCREMENT, `first_name` VARCHAR(20), `last_name` VARCHAR(20), `email` VARCHAR (30), `phone_number` INT(12), `hire_date` DATE, `job_id` INT,`salary` INT, `manager_id` INT, `department_id` INT, PRIMARY KEY (`employee_id`), foreign key(job_id) references jobs(job_id), foreign key(manager_id) references manager(manager_id), foreign key(department_id) references departments(department_id));
-Query OK, 0 rows affected (0.64 sec)
+2 rows in set (0.01 sec)
+
+mysql> CREATE TABLE `employee` ( `employee_id` INT NOT NULL AUTO_INCREMENT, `first_name` VARCHAR(20), `last_name` VARCHAR(20), `email` VARCHAR(30), `phone_number` INT(12), `hire_date` DATE, `job_id` INT, 
+    -> `salary` INT, `manager_id` INT, `department_id` INT, PRIMARY KEY (`employee_id`), foreign key(job_id) references jobs(job_id), foreign key(manager_id) references manager(manager_id), foreign key(department_id) references departments(department_id));
+Query OK, 0 rows affected, 1 warning (0.05 sec)
 
 mysql> desc employee;
 +---------------+-------------+------+-----+---------+----------------+
 | Field         | Type        | Null | Key | Default | Extra          |
 +---------------+-------------+------+-----+---------+----------------+
-| employee_id   | int(11)     | NO   | PRI | NULL    | auto_increment |
+| employee_id   | int         | NO   | PRI | NULL    | auto_increment |
 | first_name    | varchar(20) | YES  |     | NULL    |                |
 | last_name     | varchar(20) | YES  |     | NULL    |                |
 | email         | varchar(30) | YES  |     | NULL    |                |
-| phone_number  | int(12)     | YES  |     | NULL    |                |
+| phone_number  | int         | YES  |     | NULL    |                |
 | hire_date     | date        | YES  |     | NULL    |                |
-| job_id        | int(11)     | YES  | MUL | NULL    |                |
-| salary        | int(11)     | YES  |     | NULL    |                |
-| manager_id    | int(11)     | YES  | MUL | NULL    |                |
-| department_id | int(11)     | YES  | MUL | NULL    |                |
+| job_id        | int         | YES  | MUL | NULL    |                |
+| salary        | int         | YES  |     | NULL    |                |
+| manager_id    | int         | YES  | MUL | NULL    |                |
+| department_id | int         | YES  | MUL | NULL    |                |
 +---------------+-------------+------+-----+---------+----------------+
-10 rows in set (0.00 sec)
+10 rows in set (0.01 sec)
 
-mysql> create table dependents (dependent_id int not null auto_increment,first_name varchar(30), last_name varchar(30), relationship varchar(30), employee_id int ,primary key(dependent_id),foreign key(employee_id) references employee(employee_id));
-Query OK, 0 rows affected (0.72 sec)
+mysql>  create table dependents (dependent_id int not null auto_increment,first_name varchar(30), last_name varchar(30), relationship varchar(30), employee_id int ,primary key(dependent_id),foreign key(employee_id) references employee(employee_id));
+Query OK, 0 rows affected (0.05 sec)
 
 mysql> desc dependents;
 +--------------+-------------+------+-----+---------+----------------+
 | Field        | Type        | Null | Key | Default | Extra          |
 +--------------+-------------+------+-----+---------+----------------+
-| dependent_id | int(11)     | NO   | PRI | NULL    | auto_increment |
+| dependent_id | int         | NO   | PRI | NULL    | auto_increment |
 | first_name   | varchar(30) | YES  |     | NULL    |                |
 | last_name    | varchar(30) | YES  |     | NULL    |                |
 | relationship | varchar(30) | YES  |     | NULL    |                |
-| employee_id  | int(11)     | YES  | MUL | NULL    |                |
+| employee_id  | int         | YES  | MUL | NULL    |                |
 +--------------+-------------+------+-----+---------+----------------+
-5 rows in set (0.01 sec)
+5 rows in set (0.00 sec)
 
+mysql> show tables;
++----------------+
+| Tables_in_jobs |
++----------------+
+| countries      |
+| departments    |
+| dependents     |
+| employee       |
+| jobs           |
+| locations      |
+| manager        |
+| regions        |
++----------------+
+8 rows in set (0.00 sec)
 
+mysql> insert into regions values(1001,'Europe'),(1002,'America'),(1003,'Eurasia'),(1004,'Africa'),(1005,'Asia'),(1006,'Antarctica'),(1007,'Australia');
+Query OK, 7 rows affected (0.03 sec)
+Records: 7  Duplicates: 0  Warnings: 0
 
-Database changed
-mysql> select * from regions;
+mysql> select*from regions;
 +-----------+-------------+
 | region_id | region_name |
 +-----------+-------------+
-|       256 | Ernakulam   |
-|       257 | kollam      |
+|      1001 | Europe      |
+|      1002 | America     |
+|      1003 | Eurasia     |
+|      1004 | Africa      |
+|      1005 | Asia        |
+|      1006 | Antarctica  |
+|      1007 | Australia   |
 +-----------+-------------+
-2 rows in set (0.04 sec)
+7 rows in set (0.00 sec)
 
-mysql> desc countries;
-+---------------+-------------+------+-----+---------+----------------+
-| Field         | Type        | Null | Key | Default | Extra          |
-+---------------+-------------+------+-----+---------+----------------+
-| countrie_id   | int(11)     | NO   | PRI | NULL    | auto_increment |
-| countrie_name | varchar(20) | YES  |     | NULL    |                |
-| region_id     | int(11)     | YES  | MUL | NULL    |                |
-+---------------+-------------+------+-----+---------+----------------+
-3 rows in set (0.08 sec)
-mysql> insert into countries values(201,'india',256);
-Query OK, 1 row affected (0.16 sec)
+mysql> delete from regions where region_id=10;
+Query OK, 0 rows affected (0.00 sec)
 
-mysql> select *from countries;
+mysql> select*from regions;
++-----------+-------------+
+| region_id | region_name |
++-----------+-------------+
+|      1001 | Europe      |
+|      1002 | America     |
+|      1003 | Eurasia     |
+|      1004 | Africa      |
+|      1005 | Asia        |
+|      1006 | Antarctica  |
+|      1007 | Australia   |
++-----------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> insert into countries values(2001,'jermany',1001),(2002,'Mexico',1002),(2003,'Russia',1003),(2004,'Nigeria',1004),(2005,'India',1005),(2006,'France',1006),(2007,'New zealand',1007);
+Query OK, 7 rows affected (0.03 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> select*from countries;
 +-------------+---------------+-----------+
 | countrie_id | countrie_name | region_id |
 +-------------+---------------+-----------+
-|         201 | india         |       256 |
+|        2001 | jermany       |      1001 |
+|        2002 | Mexico        |      1002 |
+|        2003 | Russia        |      1003 |
+|        2004 | Nigeria       |      1004 |
+|        2005 | India         |      1005 |
+|        2006 | France        |      1006 |
+|        2007 | New zealand   |      1007 |
 +-------------+---------------+-----------+
-1 row in set (0.00 sec)
+7 rows in set (0.00 sec)
 
-mysql> desc locations;
-+----------------+-------------+------+-----+---------+----------------+
-| Field          | Type        | Null | Key | Default | Extra          |
-+----------------+-------------+------+-----+---------+----------------+
-| location_id    | int(11)     | NO   | PRI | NULL    | auto_increment |
-| street_address | varchar(50) | YES  |     | NULL    |                |
-| postal_code    | varchar(20) | YES  |     | NULL    |                |
-| city           | varchar(20) | YES  |     | NULL    |                |
-| state_province | varchar(30) | YES  |     | NULL    |                |
-| countrie_id    | int(11)     | YES  | MUL | NULL    |                |
-+----------------+-------------+------+-----+---------+----------------+
-6 rows in set (0.18 sec)
+mysql> insert into locations values(1100,'zeli',84210,'Berlin','Hamburg',2001),(1200,'Madero street',70008,'Tijuana','Chiapas', 2002),(1300,'Sovetskaya',68215,'Moscow','st peterburg',2003),(1400,'Toyin street',45681,'Lagos','Imo state',2004),(1500,'Chandni chowk',22389,'Delhi','Delhi',2005),(1600,'Champs Elysees',18998,'Paris','Corsica',2006),(1700,'Queen street',21456,'Hamilton','Auckland',2007);
+Query OK, 7 rows affected (0.02 sec)
+Records: 7  Duplicates: 0  Warnings: 0
 
-mysql> insert into locations values(1700,'mannar',666,'Allapuzha','kerala',201);
-Query OK, 1 row affected (0.43 sec)
-mysql> select *from locations;
-+-------------+----------------+-------------+-----------+----------------+-------------+
-| location_id | street_address | postal_code | city      | state_province | countrie_id |
-+-------------+----------------+-------------+-----------+----------------+-------------+
-|        1700 | mannar         | 666         | Allapuzha | kerala         |         201 |
-+-------------+----------------+-------------+-----------+----------------+-------------+
-1 row in set (0.00 sec)
+mysql>  select*from locations;
++-------------+----------------+-------------+----------+----------------+-------------+
+| location_id | street_address | postal_code | city     | state_province | countrie_id |
++-------------+----------------+-------------+----------+----------------+-------------+
+|        1100 | zeli           | 84210       | Berlin   | Hamburg        |        2001 |
+|        1200 | Madero street  | 70008       | Tijuana  | Chiapas        |        2002 |
+|        1300 | Sovetskaya     | 68215       | Moscow   | st peterburg   |        2003 |
+|        1400 | Toyin street   | 45681       | Lagos    | Imo state      |        2004 |
+|        1500 | Chandni chowk  | 22389       | Delhi    | Delhi          |        2005 |
+|        1600 | Champs Elysees | 18998       | Paris    | Corsica        |        2006 |
+|        1700 | Queen street   | 21456       | Hamilton | Auckland       |        2007 |
++-------------+----------------+-------------+----------+----------------+-------------+
+7 rows in set (0.00 sec)
 
-mysql> insert into locations values(1800,'parumala',777,'TVM','kerala',201);
-Query OK, 1 row affected (0.11 sec)
+mysql> insert into  departments values(1,'Finance',1100),(2,'Management',1200),(3,'Quality assurance',1300),(4,'Accounting',1400),(5,'Marketing',1500),(6,'Engineering',1600),(7,'Law',1700);
+Query OK, 7 rows affected (0.03 sec)
+Records: 7  Duplicates: 0  Warnings: 0
 
-mysql> select *from locations;
-+-------------+----------------+-------------+-----------+----------------+-------------+
-| location_id | street_address | postal_code | city      | state_province | countrie_id |
-+-------------+----------------+-------------+-----------+----------------+-------------+
-|        1700 | mannar         | 666         | Allapuzha | kerala         |         201 |
-|        1800 | parumala       | 777         | TVM       | kerala         |         201 |
-+-------------+----------------+-------------+-----------+----------------+-------------+
-2 rows in set (0.00 sec)
+mysql> select*from  departments;
++---------------+-------------------+-------------+
+| department_id | department_name   | location_id |
++---------------+-------------------+-------------+
+|             1 | Finance           |        1100 |
+|             2 | Management        |        1200 |
+|             3 | Quality assurance |        1300 |
+|             4 | Accounting        |        1400 |
+|             5 | Marketing         |        1500 |
+|             6 | Engineering       |        1600 |
+|             7 | Law               |        1700 |
++---------------+-------------------+-------------+
+7 rows in set (0.00 sec)
 
-mysql> desc department;
-ERROR 1146 (42S02): Table 'jobs.department' doesn't exist
-mysql> desc departments;
-+-----------------+-------------+------+-----+---------+----------------+
-| Field           | Type        | Null | Key | Default | Extra          |
-+-----------------+-------------+------+-----+---------+----------------+
-| department_id   | int(11)     | NO   | PRI | NULL    | auto_increment |
-| department_name | varchar(30) | YES  |     | NULL    |                |
-| location_id     | int(11)     | YES  | MUL | NULL    |                |
-+-----------------+-------------+------+-----+---------+----------------+
-3 rows in set (0.00 sec)
+mysql> insert into jobs values(10,'Loan officer',15000,20000),(20,'Data entry',5000,8000),(30,'Quality Engineer',30000,65000),(40,'Senior Accountant',28000,45000),(50,'Marketing manager',35000,69000),(60,'Civil Engineer',30000,70000),(70,'Advocate',90000,10);
+Query OK, 7 rows affected (0.02 sec)
+Records: 7  Duplicates: 0  Warnings: 0
 
-mysql> insert into departments values(1,'computer',1700);
-Query OK, 1 row affected (0.07 sec)
-
-mysql> insert into departments values(2,'maths',1800);
-Query OK, 1 row affected (0.10 sec)
-
-mysql> insert into departments values(3,'science',1500);
-mysql> insert into departments values(3,'science',1700);
-Query OK, 1 row affected (0.08 sec)
-
-mysql> insert into departments values(4,'finance',1700);
-Query OK, 1 row affected (0.12 sec)
-
-mysql> select * from departments;
-+---------------+-----------------+-------------+
-| department_id | department_name | location_id |
-+---------------+-----------------+-------------+
-|             1 | computer        |        1700 |
-|             2 | maths           |        1800 |
-|             3 | science         |        1700 |
-|             4 | finance         |        1700 |
-+---------------+-----------------+-------------+
-4 rows in set (0.00 sec)
-
-mysql> desc jobs;
-+------------+-------------+------+-----+---------+----------------+
-| Field      | Type        | Null | Key | Default | Extra          |
-+------------+-------------+------+-----+---------+----------------+
-| job_id     | int(11)     | NO   | PRI | NULL    | auto_increment |
-| job_title  | varchar(20) | YES  |     | NULL    |                |
-| min_salary | int(11)     | YES  |     | NULL    |                |
-| max_salary | int(11)     | YES  |     | NULL    |                |
-+------------+-------------+------+-----+---------+----------------+
-4 rows in set (0.00 sec)
-
-mysql> insert into jobs values(501,'manager',5000,10500);
-Query OK, 1 row affected (0.04 sec)
-
-mysql> insert into jobs values(502,'cleark',5000,9000);
-Query OK, 1 row affected (0.06 sec)
-
-mysql> insert into jobs values(503,'database',5000,10000);
-Query OK, 1 row affected (0.06 sec)
-
-mysql> select * from jobs;
-+--------+-----------+------------+------------+
-| job_id | job_title | min_salary | max_salary |
-+--------+-----------+------------+------------+
-|    501 | manager   |       5000 |      10500 |
-|    502 | cleark    |       5000 |       9000 |
-|    503 | database  |       5000 |      10000 |
-+--------+-----------+------------+------------+
-3 rows in set (0.00 sec)
-
-mysql> desc manager;
-+------------+-------------+------+-----+---------+----------------+
-| Field      | Type        | Null | Key | Default | Extra          |
-+------------+-------------+------+-----+---------+----------------+
-| manager_id | int(11)     | NO   | PRI | NULL    | auto_increment |
-| name       | varchar(20) | YES  |     | NULL    |                |
-+------------+-------------+------+-----+---------+----------------+
-2 rows in set (0.00 sec)
-
-mysql> insert into manager values(101,'manu');
-Query OK, 1 row affected (0.07 sec)
-
-mysql> insert into manager values(105,'malavika');
-Query OK, 1 row affected (0.16 sec)
-
-mysql> select * from manager;
-+------------+----------+
-| manager_id | name     |
-+------------+----------+
-|        101 | manu     |
-|        105 | malavika |
-+------------+----------+
-2 rows in set (0.00 sec)
-
-mysql> desc employee;
-+---------------+-------------+------+-----+---------+----------------+
-| Field         | Type        | Null | Key | Default | Extra          |
-+---------------+-------------+------+-----+---------+----------------+
-| employee_id   | int(11)     | NO   | PRI | NULL    | auto_increment |
-| first_name    | varchar(20) | YES  |     | NULL    |                |
-| last_name     | varchar(20) | YES  |     | NULL    |                |
-| email         | varchar(30) | YES  |     | NULL    |                |
-| phone_number  | int(12)     | YES  |     | NULL    |                |
-| hire_date     | date        | YES  |     | NULL    |                |
-| job_id        | int(11)     | YES  | MUL | NULL    |                |
-| salary        | int(11)     | YES  |     | NULL    |                |
-| manager_id    | int(11)     | YES  | MUL | NULL    |                |
-| department_id | int(11)     | YES  | MUL | NULL    |                |
-+---------------+-------------+------+-----+---------+----------------+
-10 rows in set (0.00 sec)
-
-
-
-
+mysql> select*from jobs;
++--------+-------------------+------------+------------+
+| job_id | job_title         | min_salary | max_salary |
++--------+-------------------+------------+------------+
+|     10 | Loan officer      |      15000 |      20000 |
+|     20 | Data entry        |       5000 |       8000 |
+|     30 | Quality Engineer  |      30000 |      65000 |
+|     40 | Senior Accountant |      28000 |      45000 |
+|     50 | Marketing manager |      35000 |      69000 |
+|     60 | Civil Engineer    |      30000 |      70000 |
+|     70 | Advocate          |      90000 |         10 |
++--------+-------------------+------------+------------+
+7 rows in set (0.00 sec)
