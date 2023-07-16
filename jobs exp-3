@@ -329,7 +329,7 @@ mysql> select*from dependents;
 7 rows in set (0.00 sec)
 
 
-mysql> select e.first_name,e.last_name from employee e join departments l on e.department_id=l.department_id where l.location_id=1700;
+1. mysql> select e.first_name,e.last_name from employee e join departments l on e.department_id=l.department_id where l.location_id=1700;
 +------------+-----------+
 | first_name | last_name |
 +------------+-----------+
@@ -337,7 +337,7 @@ mysql> select e.first_name,e.last_name from employee e join departments l on e.d
 +------------+-----------+
 1 row in set (0.00 sec)
 
-mysql> select e.first_name,e.last_name from employee e join departments l on e.department_id=l.department_id where l.location_id not in (1700);
+2. mysql> select e.first_name,e.last_name from employee e join departments l on e.department_id=l.department_id where l.location_id not in (1700);
 +------------+-----------+
 | first_name | last_name |
 +------------+-----------+
@@ -350,7 +350,7 @@ mysql> select e.first_name,e.last_name from employee e join departments l on e.d
 
 mysql> select first-name,last_name,salary from employee where salary=(select max(salary)from employee);
 ERROR 1054 (42S22): Unknown column 'first' in 'field list'
-mysql> select first_name,last_name,salary from employee where salary=(select max(salary)from employee);
+3. mysql> select first_name,last_name,salary from employee where salary=(select max(salary)from employee);
 +------------+-----------+--------+
 | first_name | last_name | salary |
 +------------+-----------+--------+
@@ -358,7 +358,7 @@ mysql> select first_name,last_name,salary from employee where salary=(select max
 +------------+-----------+--------+
 1 row in set (0.00 sec)
 
-mysql> select first_name,last_name,salary from employee where salary>all(select avg(salary)from employee);
+4. mysql> select first_name,last_name,salary from employee where salary>all(select avg(salary)from employee);
 +------------+-----------+--------+
 | first_name | last_name | salary |
 +------------+-----------+--------+
@@ -367,7 +367,7 @@ mysql> select first_name,last_name,salary from employee where salary>all(select 
 +------------+-----------+--------+
 2 rows in set (0.00 sec)
 
-mysql> select departments.department_id,department_name,employee.first_name,employee.last_name from departments, employee where departments.department_id=employee.department_id and employee.salary>10000;
+5. mysql> select departments.department_id,department_name,employee.first_name,employee.last_name from departments, employee where departments.department_id=employee.department_id and employee.salary>10000;
 
 +---------------+-----------------+------------+-----------+
 | department_id | department_name | first_name | last_name |
@@ -379,7 +379,7 @@ mysql> select departments.department_id,department_name,employee.first_name,empl
 +---------------+-----------------+------------+-----------+
 4 rows in set (0.00 sec)
 
-mysql> select departments.department_id,department_name,employee.first_name,employee.last_name from departments, employee where departments.department_id=employee.department_id and employee.salary<10000;
+6. mysql> select departments.department_id,department_name,employee.first_name,employee.last_name from departments, employee where departments.department_id=employee.department_id and employee.salary<10000;
 
 +---------------+-----------------+------------+-----------+
 | department_id | department_name | first_name | last_name |
@@ -390,7 +390,7 @@ mysql> select departments.department_id,department_name,employee.first_name,empl
 
 mysql> select first_name,last_name,salary,department_id from employee where salary>(select min(salary)from employee where department_id=department
     -> ^C
-mysql> select first_name,last_name,salary,department_id from employee where salary>(select min(salary)from employee where department_id=department_id);
+7. mysql> select first_name,last_name,salary,department_id from employee where salary>(select min(salary)from employee where department_id=department_id);
 +------------+-----------+--------+---------------+
 | first_name | last_name | salary | department_id |
 +------------+-----------+--------+---------------+
@@ -401,7 +401,7 @@ mysql> select first_name,last_name,salary,department_id from employee where sala
 +------------+-----------+--------+---------------+
 4 rows in set (0.01 sec)
 
-mysql> select first_name,last_name,salary,department_id from employee where salary>=(select min(salary)from employee where department_id=department_id);
+8. mysql> select first_name,last_name,salary,department_id from employee where salary>=(select min(salary)from employee where department_id=department_id);
 +------------+-----------+--------+---------------+
 | first_name | last_name | salary | department_id |
 +------------+-----------+--------+---------------+
@@ -413,7 +413,7 @@ mysql> select first_name,last_name,salary,department_id from employee where sala
 +------------+-----------+--------+---------------+
 5 rows in set (0.00 sec)
 
-mysql> select avg(avg_salary)as average_department_salary from(select department_id,avg(salary)as avg_salary from employee group by department_id)as department_salaries;
+9. mysql> select avg(avg_salary)as average_department_salary from(select department_id,avg(salary)as avg_salary from employee group by department_id)as department_salaries;
 +---------------------------+
 | average_department_salary |
 +---------------------------+
