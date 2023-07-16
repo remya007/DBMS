@@ -367,4 +367,58 @@ mysql> select first_name,last_name,salary from employee where salary>all(select 
 +------------+-----------+--------+
 2 rows in set (0.00 sec)
 
+mysql> select departments.department_id,department_name,employee.first_name,employee.last_name from departments, employee where departments.department_id=employee.department_id and employee.salary>10000;
+
++---------------+-----------------+------------+-----------+
+| department_id | department_name | first_name | last_name |
++---------------+-----------------+------------+-----------+
+|             4 | Accounting      | Zack       | John      |
+|             6 | Engineering     | Isaac      | mathew    |
+|             5 | Marketing       | Dhruv      | mohan     |
+|             7 | Law             | Milo       | Luis      |
++---------------+-----------------+------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select departments.department_id,department_name,employee.first_name,employee.last_name from departments, employee where departments.department_id=employee.department_id and employee.salary<10000;
+
++---------------+-----------------+------------+-----------+
+| department_id | department_name | first_name | last_name |
++---------------+-----------------+------------+-----------+
+|             2 | Management      | Ethan      | Jack      |
++---------------+-----------------+------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> select first_name,last_name,salary,department_id from employee where salary>(select min(salary)from employee where department_id=department
+    -> ^C
+mysql> select first_name,last_name,salary,department_id from employee where salary>(select min(salary)from employee where department_id=department_id);
++------------+-----------+--------+---------------+
+| first_name | last_name | salary | department_id |
++------------+-----------+--------+---------------+
+| Zack       | John      |  32000 |             4 |
+| Isaac      | mathew    |  40000 |             6 |
+| Dhruv      | mohan     |  25000 |             5 |
+| Milo       | Luis      |  91000 |             7 |
++------------+-----------+--------+---------------+
+4 rows in set (0.01 sec)
+
+mysql> select first_name,last_name,salary,department_id from employee where salary>=(select min(salary)from employee where department_id=department_id);
++------------+-----------+--------+---------------+
+| first_name | last_name | salary | department_id |
++------------+-----------+--------+---------------+
+| Zack       | John      |  32000 |             4 |
+| Isaac      | mathew    |  40000 |             6 |
+| Dhruv      | mohan     |  25000 |             5 |
+| Milo       | Luis      |  91000 |             7 |
+| Ethan      | Jack      |   7000 |             2 |
++------------+-----------+--------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> select avg(avg_salary)as average_department_salary from(select department_id,avg(salary)as avg_salary from employee group by department_id)as department_salaries;
++---------------------------+
+| average_department_salary |
++---------------------------+
+|            39000.00000000 |
++---------------------------+
+1 row in set (0.01 sec)
+
 
