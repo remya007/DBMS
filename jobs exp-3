@@ -388,30 +388,45 @@ ERROR 1054 (42S22): Unknown column 'first' in 'field list'
 +---------------+-----------------+------------+-----------+
 1 row in set (0.00 sec)
 
-mysql> select first_name,last_name,salary,department_id from employee where salary>(select min(salary)from employee where department_id=department
-    -> ^C
-7. mysql> select first_name,last_name,salary,department_id from employee where salary>(select min(salary)from employee where department_id=department_id);
-+------------+-----------+--------+---------------+
-| first_name | last_name | salary | department_id |
-+------------+-----------+--------+---------------+
-| Zack       | John      |  32000 |             4 |
-| Isaac      | mathew    |  40000 |             6 |
-| Dhruv      | mohan     |  25000 |             5 |
-| Milo       | Luis      |  91000 |             7 |
-+------------+-----------+--------+---------------+
-4 rows in set (0.01 sec)
+mysql> insert into employee values(54321,"kiran","varma","kiranvarma@gmail.com",979413111,"1999-08-30",10,25200,34,5);
+Query OK, 1 row affected (0.04 sec)
 
-8. mysql> select first_name,last_name,salary,department_id from employee where salary>=(select min(salary)from employee where department_id=department_id);
-+------------+-----------+--------+---------------+
-| first_name | last_name | salary | department_id |
-+------------+-----------+--------+---------------+
-| Zack       | John      |  32000 |             4 |
-| Isaac      | mathew    |  40000 |             6 |
-| Dhruv      | mohan     |  25000 |             5 |
-| Milo       | Luis      |  91000 |             7 |
-| Ethan      | Jack      |   7000 |             2 |
-+------------+-----------+--------+---------------+
-5 rows in set (0.00 sec)
+mysql> insert into employee values(86284,"Govind","km","Govindkm@gmail.com",900598765,"2005-04-8",20,7500,33,2);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into employee values(29076,"Arya","Rajan","aryarajan@gmail.com",775593456,"1996-08-16",60,45000,43,6);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select*from employee;
++-------------+------------+-----------+-------------------------+--------------+------------+--------+--------+------------+---------------+
+| employee_id | first_name | last_name | email                   | phone_number | hire_date  | job_id | salary | manager_id | department_id |
++-------------+------------+-----------+-------------------------+--------------+------------+--------+--------+------------+---------------+
+|       10158 | Zack       | John      | zackjohn28@gmail.com    |    885318964 | 2004-03-05 |     40 |  32000 |         37 |             4 |
+|       29052 | Isaac      | mathew    | issacmathew45@gmail.com |    775595585 | 1994-05-08 |     60 |  40000 |         43 |             6 |
+|       29076 | Arya       | Rajan     | aryarajan@gmail.com     |    775593456 | 1996-08-16 |     60 |  45000 |         43 |             6 |
+|       54321 | kiran      | varma     | kiranvarma@gmail.com    |    979413111 | 1999-08-30 |     10 |  25200 |         34 |             5 |
+|       61234 | Dhruv      | mohan     | dhruvmohan02@gmail.com  |    979413510 | 1997-07-26 |     10 |  25000 |         34 |             5 |
+|       69532 | Milo       | Luis      | miloluis500@gmail.com   |    876543234 | 2000-09-12 |     70 |  91000 |         31 |             7 |
+|       86284 | Govind     | km        | Govindkm@gmail.com      |    900598765 | 2005-04-08 |     20 |   7500 |         33 |             2 |
+|       86324 | Ethan      | Jack      | ethanjack09@gmail.com   |    900599198 | 2002-05-11 |     20 |   7000 |         33 |             2 |
++-------------+------------+-----------+-------------------------+--------------+------------+--------+--------+------------+---------------+
+8 rows in set (0.00 sec)
+
+7. mysql>  select e.employee_id,e.first_name,e.last_name,e.salary from employee e where e.salary> ALL (select min(salary) from employee group by department_id);
++-------------+------------+-----------+--------+
+| employee_id | first_name | last_name | salary |
++-------------+------------+-----------+--------+
+|       69532 | Milo       | Luis      |  91000 |
++-------------+------------+-----------+--------+
+1 row in set (0.02 sec)
+
+8. mysql>  select e.employee_id,e.first_name,e.last_name,e.salary from employee e where e.salary>= ALL (select max(salary) from employee group by department_id);
++-------------+------------+-----------+--------+
+| employee_id | first_name | last_name | salary |
++-------------+------------+-----------+--------+
+|       69532 | Milo       | Luis      |  91000 |
++-------------+------------+-----------+--------+
+1 row in set (0.00 sec)
 
 9. mysql> select avg(avg_salary)as average_department_salary from(select department_id,avg(salary)as avg_salary from employee group by department_id)as department_salaries;
 +---------------------------+
@@ -420,5 +435,37 @@ mysql> select first_name,last_name,salary,department_id from employee where sala
 |            39000.00000000 |
 +---------------------------+
 1 row in set (0.01 sec)
+
+10. mysql> select employee_id,first_name,salary,(select avg(salary) from employee) as avg_salary,salary-(select avg(salary) from employee) as salary_diff from employee;
++-------------+------------+--------+------------+-------------+
+| employee_id | first_name | salary | avg_salary | salary_diff |
++-------------+------------+--------+------------+-------------+
+|       10158 | Zack       |  32000 | 39188.8889 |  -7188.8889 |
+|       29052 | Isaac      |  40000 | 39188.8889 |    811.1111 |
+|       29076 | Arya       |  45000 | 39188.8889 |   5811.1111 |
+|       54321 | kiran      |  25200 | 39188.8889 | -13988.8889 |
+|       61234 | Dhruv      |  25000 | 39188.8889 | -14188.8889 |
+|       68540 | James      |  80000 | 39188.8889 |  40811.1111 |
+|       69532 | Milo       |  91000 | 39188.8889 |  51811.1111 |
+|       86284 | Govind     |   7500 | 39188.8889 | -31688.8889 |
+|       86324 | Ethan      |   7000 | 39188.8889 | -32188.8889 |
++-------------+------------+--------+------------+-------------+
+9 rows in set (0.00 sec)
+
+11.  mysql> select employee_id,first_name,last_name,salary,department_name from employee,departments where employee.department_id=departments.department_id and salary>(select avg(salary) from employee);
++-------------+------------+-----------+--------+-----------------+
+| employee_id | first_name | last_name | salary | department_name |
++-------------+------------+-----------+--------+-----------------+
+|       29052 | Isaac      | mathew    |  40000 | Engineering     |
+|       29076 | Arya       | Rajan     |  45000 | Engineering     |
+|       68540 | James      | Vk        |  80000 | Law             |
+|       69532 | Milo       | Luis      |  91000 | Law             |
++-------------+------------+-----------+--------+-----------------+
+4 rows in set (0.01 sec)
+
+12. 
+
+
+13. 
 
 
