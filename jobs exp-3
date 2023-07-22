@@ -432,9 +432,10 @@ mysql> select*from employee;
 +---------------------------+
 | average_department_salary |
 +---------------------------+
-|            39000.00000000 |
+|            38470.00000000 |
 +---------------------------+
-1 row in set (0.01 sec)
+1 row in set (0.02 sec)
+
 
 10. mysql> select employee_id,first_name,salary,(select avg(salary) from employee) as avg_salary,salary-(select avg(salary) from employee) as salary_diff from employee;
 +-------------+------------+--------+------------+-------------+
@@ -463,7 +464,7 @@ mysql> select*from employee;
 +-------------+------------+-----------+--------+-----------------+
 4 rows in set (0.01 sec)
 
-12. 
+12.  
 
 
 13. 
